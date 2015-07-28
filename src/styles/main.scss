@@ -1,3 +1,8 @@
+/* Default value */
+
+$PIN_WIDTH: 38px;
+$PIN_HEIGHT: 56px;
+
 /* Stiziles */
 
 html, body {
@@ -15,5 +20,20 @@ html, body {
     height: 100%;
     position: relative;
     overflow: hidden;
+    &__pin {
+      position: absolute;
+      width: $PIN_WIDTH;
+      height: $PIN_HEIGHT;
+      left: -$PIN_WIDTH / 2;
+      top: -$PIN_HEIGHT / 2;
+      &--from {
+        @extend .main__map__pin;
+        background: url(../images/PinFrom.png) no-repeat;
+      }
+      &--to {
+        @extend .main__map__pin;
+        background: url(../images/PinToBlue.png) no-repeat;
+      }
+    }
   }
 }

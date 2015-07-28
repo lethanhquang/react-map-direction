@@ -18,7 +18,7 @@ module.exports = {
 
   debug: false,
   devtool: false,
-  entry: './src/components/ReactMapDirectionApp.js',
+  entry: './src/app.js',
 
   stats: {
     colors: true,

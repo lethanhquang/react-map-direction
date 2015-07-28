@@ -7,14 +7,14 @@
   "src": "src",
   "test": "test",
   "dist": "dist",
-  "mainInput": "ReactMapDirectionApp",
+  "mainInput": "app",
   "mainOutput": "main",
   "dependencies": {
     "bootstrap": "^3.3.5",
-    "google-map-react": "^0.4.0",
     "jquery": "^2.1.4",
     "normalize.css": "~3.0.3",
-    "react": "0.13.x"
+    "react": "0.13.x",
+    "react-google-maps": "^1.7.1"
   },
   "devDependencies": {
     "babel": "^5.0.0",
