@@ -2,11 +2,23 @@
 
 import React from 'react/addons';
 
+/**
+ * SearchBox component
+ */
 class SearchBox extends React.Component {
   constructor(props) {
     super(props);
   }
 
+  /**
+   * This function initialize search input, using the Google Place Autocomplete
+   * feature. People can enter geographical searches. The search box will return a
+   * pick list containing a mix of places and predicted search terms.
+   *
+   * This API is limited by the free quota:
+   * + 25,000 requests/day
+   * +      1 requests/second/user
+   */
   initSearchInput(type, component) {
     if (component) {
       const {googleMapsApi, handleLocations} = this.props;
@@ -21,7 +33,7 @@ class SearchBox extends React.Component {
         // In case not found any place then do nothing
         if (places.length === 0) return;
 
-        // Get location
+        // Call function to update locations
         handleLocations(places[0].geometry.location, type);
       });
     }

@@ -7,6 +7,9 @@ import SearchBox                                from './SearchBox';
 const pinFromImg     = require('../images/PinFrom.png');
 const pinToImg       = require('../images/PinToBlue.png');
 
+/**
+ * Main component
+ */
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +25,10 @@ class Home extends React.Component {
   componentDidMount() {
   }
 
+  /**
+   * This function to handle draw directions when get both
+   * origin and destination
+   */
   handleDirections() {
     const {origin, destination, directions} = this.state;
 
@@ -44,6 +51,10 @@ class Home extends React.Component {
     }
   }
 
+  /**
+   * This function to handle update origin, destination
+   * after user choosen location from searchBox
+   */
   handleLocations(location, type) {
     const {origin, destination, bounds} = this.state;
     const newState                      = {};
@@ -52,7 +63,7 @@ class Home extends React.Component {
 
     this.setState(newState);
 
-    //check direction
+    // Call function to draw direction
     this.handleDirections()
   }
 
