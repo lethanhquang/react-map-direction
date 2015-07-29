@@ -4,8 +4,8 @@ import React                                    from 'react/addons';
 import {GoogleMaps, Marker, DirectionsRenderer} from 'react-google-maps';
 import SearchBox                                from './SearchBox';
 
-const pinFromImg     = require('../images/PinFrom.png');
-const pinToImg       = require('../images/PinToBlue.png');
+const pinFromImg = require('../images/PinFrom.png');
+const pinToImg   = require('../images/PinToBlue.png');
 
 /**
  * Main component

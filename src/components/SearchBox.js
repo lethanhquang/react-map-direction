@@ -2,6 +2,9 @@
 
 import React from 'react/addons';
 
+const routeFromImg = require('../images/RouteToGreen.png');
+const routeToImg   = require('../images/RouteToBlue.png');
+
 /**
  * SearchBox component
  */
@@ -45,17 +48,23 @@ class SearchBox extends React.Component {
         <div className='row'>
           <div className='col-md-4 col-sm-12 col-xs-12'>
             <div className='home__searchbox__origin'>
-              <input ref={this.initSearchInput.bind(this, 'origin')}
-                     type='text'
-                     className='form-control'
-                     placeholder='Choose starting point'/>
+              <div className="input-group">
+                <span className="input-group-addon" />
+                <input ref={this.initSearchInput.bind(this, 'origin')}
+                       type='text'
+                       className='form-control'
+                       placeholder='Choose starting point'/>
+              </div>
             </div>
             { this.props.origin ?
               <div className='home__searchbox__destination'>
-                <input ref={this.initSearchInput.bind(this, 'destination')}
-                       type='text'
-                       className='form-control'
-                       placeholder='Choose destination...'/>
+                <div className="input-group">
+                  <span className="input-group-addon" />
+                  <input ref={this.initSearchInput.bind(this, 'destination')}
+                         type='text'
+                         className='form-control'
+                         placeholder='Choose destination...'/>
+                </div>
               </div> : null }
           </div>
         </div>

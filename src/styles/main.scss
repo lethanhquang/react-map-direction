@@ -43,5 +43,42 @@ html, body, #content {
     width: 100%;
     z-index: 1;
     padding: 10px;
+
+    .input-group {
+      width: 100%;
+      .input-group-addon {
+        background-color: #FFFFFF;
+        background-size: contain;
+        border: none;
+        width: 34px;
+        height: 34px;
+      }
+      .form-control {
+        border: none;
+        box-shadow: none;
+        height: 38px;
+      }
+    }
+    &__origin {
+      .input-group-addon {
+        background: url(../images/RouteToGreen.png) center no-repeat;
+        border-bottom-left-radius: 0px;
+      }
+      .form-control {
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+      }
+    }
+    &__destination {
+      .input-group-addon {
+        background: url(../images/RouteToBlue.png) center no-repeat;
+        border-top-left-radius: 0px;
+      }
+      .form-control {
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+        border-top: 1px solid #F5F5F5 !important;
+      }
+    }
   }
 }
