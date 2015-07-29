@@ -1,19 +1,19 @@
 'use strict';
 
-describe('App', () => {
+describe('Home', () => {
   let React = require('react/addons');
-  let App, component;
+  let Home, component;
 
   beforeEach(() => {
     let container = document.createElement('div');
     container.id = 'content';
     document.body.appendChild(container);
 
-    App = require('app.js');
-    component = React.createElement(App);
+    Home = require('Home.js');
+    component = React.createElement(Home);
   });
 
-  it('should create a new instance of App', () => {
+  it('should create a new instance of Home', () => {
     expect(component).toBeDefined();
   });
 });
