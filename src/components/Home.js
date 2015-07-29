@@ -7,6 +7,15 @@ import SearchBox                                from './SearchBox';
 const pinFromImg = require('../images/PinFrom.png');
 const pinToImg   = require('../images/PinToBlue.png');
 
+// Define function check geolocation support
+const geolocation = (
+  "undefined" !== typeof window && navigator && navigator.geolocation || {
+    getCurrentPosition: (success, failure) => {
+      failure("Your browser doesn't support geolocation.");
+    },
+  }
+);
+
 /**
  * Main component
  */
@@ -15,7 +24,6 @@ class Home extends React.Component {
     super(props);
 
     this.state = {
-      center: new google.maps.LatLng(40.69847032728747, -73.9514422416687)
     };
 
     this.handleLocations  = this.handleLocations.bind(this);
@@ -23,6 +31,20 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
+    // set default center is central of district 7
+    let lat = 10.7340344,
+        lng = 106.72157870000001;
+
+    // get current location
+    geolocation.getCurrentPosition((position) => {
+      lat = position.coords.latitude;
+      lng = position.coords.longitude;
+    });
+
+    // update center
+    this.setState({
+      center: new google.maps.LatLng(lat, lng)
+    });
   }
 
   /**
@@ -43,9 +65,6 @@ class Home extends React.Component {
       }, (result, status) => {
         if(status == google.maps.DirectionsStatus.OK) {
           this.setState({ directions: result });
-        }
-        else {
-          console.error(`error fetching directions ${ result }`);
         }
       });
     }
@@ -84,7 +103,9 @@ class Home extends React.Component {
             googleMapsApi={googleMapsApi}
             center={center}
             zoom={14}
-            bounds={bounds}>
+            bounds={bounds}
+            streetViewControl={false}
+            mapTypeControl={false}>
 
             {origin ? <Marker position={origin}
                                     icon={pinFromImg}
