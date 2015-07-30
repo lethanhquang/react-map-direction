@@ -26,8 +26,8 @@ class Home extends React.Component {
     this.state = {
     };
 
-    this.handleLocations  = this.handleLocations.bind(this);
-    this.handleDirections = this.handleDirections.bind(this);
+    this.handleLocations     = this.handleLocations.bind(this);
+    this.handleDirections    = this.handleDirections.bind(this);
   }
 
   componentDidMount() {
@@ -74,11 +74,12 @@ class Home extends React.Component {
    * This function to handle update origin, destination
    * after user choosen location from searchBox
    */
-  handleLocations(location, type) {
+  handleLocations(location, type, address = null) {
     const {origin, destination, bounds} = this.state;
-    const newState                      = {};
+    let   newState                      = {};
           newState['center']            = location;
           newState[type]                = location;
+          newState[`${type}Address`]    = address;
 
     this.setState(newState);
 
@@ -86,15 +87,40 @@ class Home extends React.Component {
     this.handleDirections()
   }
 
+  /**
+   * This function to handle after event `draged` of Marker
+   * and then update current address
+   */
+  handleMarkerChanged(type, event) {
+    const position   = event.latLng;
+    const geocoder   = new google.maps.Geocoder();
+    let   address    = '';
+    let   newAddress = {};
+
+    // get address by geocodeer
+    geocoder.geocode({
+      latLng: position
+    }, (res) => {
+      if (res && res.length > 0) {
+        address = res[0].formatted_address;
+      }
+
+      // call function update location
+      this.handleLocations(position, type, address);
+    });
+  }
+
   render() {
     const googleMapsApi = 'undefined' !== typeof google ? google.maps : null;
-    const {origin, destination, directions, bounds, center} = this.state;
+    const {origin, originAddress, destination, destinationAddress, directions, bounds, center} = this.state;
 
     return (
       <div className='home'>
         <SearchBox googleMapsApi={googleMapsApi}
                origin={origin}
+               originAddress={originAddress}
                destination={destination}
+               destinationAddress={destinationAddress}
                handleLocations={this.handleLocations} />
 
         <div className='home__map'>
@@ -108,14 +134,20 @@ class Home extends React.Component {
             mapTypeControl={false}>
 
             {origin ? <Marker position={origin}
-                                    icon={pinFromImg}
-                                    key={'marker-origin'}
-                                    animation={2} /> : null}
+                              icon={pinFromImg}
+                              googleMapsApi={googleMapsApi}
+                              draggable={true}
+                              onDragend={this.handleMarkerChanged.bind(this, 'origin')}
+                              key={'marker-origin'}
+                              animation={2} /> : null}
 
             {destination ? <Marker position={destination}
-                                         icon={pinToImg}
-                                         key={'marker-destination'}
-                                         animation={2} /> : null}
+                                   icon={pinToImg}
+                                   googleMapsApi={googleMapsApi}
+                                   draggable={true}
+                                   onDragend={this.handleMarkerChanged.bind(this, 'destination')}
+                                   key={'marker-destination'}
+                                   animation={2} /> : null}
 
             {directions ?  <DirectionsRenderer directions={directions}
                                                polylineOptions={{strokeColor: '#40b450'}}

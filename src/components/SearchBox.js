@@ -24,8 +24,9 @@ class SearchBox extends React.Component {
    */
   initSearchInput(type, component) {
     if (component) {
-      const {googleMapsApi, handleLocations} = this.props;
+      const {handleLocations} = this.props;
       const inputComponent                  = component.getDOMNode();
+      const googleMapsApi = google.maps;
       const searchBox                       = new googleMapsApi.places.SearchBox(inputComponent);
 
       // Listen for the event fired when the user selects an item from the
@@ -43,6 +44,8 @@ class SearchBox extends React.Component {
   }
 
   render() {
+    const {originAddress, destinationAddress} = this.props;
+
     return (
       <div className='home__searchbox'>
         <div className='row'>
@@ -52,8 +55,9 @@ class SearchBox extends React.Component {
                 <span className="input-group-addon" />
                 <input ref={this.initSearchInput.bind(this, 'origin')}
                        type='text'
+                       value={originAddress}
                        className='form-control'
-                       placeholder='Choose starting point'/>
+                       placeholder='Choose starting point' />
               </div>
             </div>
             { this.props.origin ?
@@ -62,6 +66,7 @@ class SearchBox extends React.Component {
                   <span className="input-group-addon" />
                   <input ref={this.initSearchInput.bind(this, 'destination')}
                          type='text'
+                         value={destinationAddress}
                          className='form-control'
                          placeholder='Choose destination...'/>
                 </div>
